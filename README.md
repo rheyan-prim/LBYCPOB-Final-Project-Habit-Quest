@@ -26,6 +26,9 @@ Habit Quest is a gamified habit-tracking application that transforms daily perso
         User - authentication and role management
 Recommended Additions: (Strengthen Your Proposal)
 8.	User Stories: Short feature descriptions from the end-user's perspective:
-"As a store owner, I want to receive a low-stock alert so that I can reorder before running out."
+- As a gamer and productivity enthusiast, I want my habits to reward me with XP and levels so that I feel a sense of RPG-style progression and stays motivated to maintain my routines.
+- As a student or working professional, I want to create custom habits with my own titles, descriptions, and uploaded images through the UI so that my dashboard feels personalized to my specific lifestyle.
+- As an everyday user, I want the app to track my daily completion streaks and apply an XP multiplier so that I am visually and mechanically incentivized to not break my habit loops.
+- As a security-conscious user, I want to log into a secure account so that my custom habits, personal stats, and level progress are saved and protected across different sessions.
 
 9. Core Features: A bulleted list of the main functions your system will support (e.g., user login, inventory tracking, sales reporting, receipt generation).

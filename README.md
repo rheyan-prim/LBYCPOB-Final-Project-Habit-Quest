@@ -29,7 +29,6 @@ Habit Quest is a gamified habit-tracking application that transforms daily perso
 -   StreakTracker: A utility class dedicated to temporal logic.
       Responsibilities: Tracks dates of completion, calculates the current streak length, and computes the active XP multiplier based on that streak.
 
-
 8.	User Stories: Short feature descriptions from the end-user's perspective:
 - As a gamer and productivity enthusiast, I want my habits to reward me with XP and levels so that I feel a sense of RPG-style progression and stays motivated to maintain my routines.
 - As a student or working professional, I want to create custom habits with my own titles, descriptions, and uploaded images through the UI so that my dashboard feels personalized to my specific lifestyle.
@@ -37,3 +36,7 @@ Habit Quest is a gamified habit-tracking application that transforms daily perso
 - As a security-conscious user, I want to log into a secure account so that my custom habits, personal stats, and level progress are saved and protected across different sessions.
 
 9. Core Features: A bulleted list of the main functions your system will support (e.g., user login, inventory tracking, sales reporting, receipt generation).
+- Interactive Quest Dashboard: The dashboard is an interactive way to show all the users active habits in a format of "quest cards" each displaying how much of a bar you have completed toward reaching your next level.
+- Dynamic XP and Multiplication Service: A back-end service to calculate XP based upon the difficulty of completing a specific habit and then apply a multiplication factor (such as 1.5X or 2X) for completing consecutive days of a habit.
+- Custom Habit Creation: A flow through which the user can create his/her own habits by entering what they are trying to do (and the image associated), and then rate how difficult it will be to maintain the new habit. This rating influences the amount of XP he/she may earn for successfully maintaining the new habit.
+- Persistence Layer (data repository): System for saving and loading user state (the habits they created, the number of days into their streak, etc.) when they close out their session; this prevents them from losing their progress.

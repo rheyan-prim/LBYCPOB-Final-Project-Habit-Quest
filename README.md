@@ -20,11 +20,16 @@ Habit Quest is a gamified habit-tracking application that transforms daily perso
 -	Polymorphism - calculateXPReward() → overridden per habit type We will override a single reward method across different habit subclasses so the system can dynamically 							calculate a flat XP rate for standard daily tasks while scaling higher XP rewards for difficult, one-time epic quests.
 -	Abstraction - Rewardable interface → implemented by DailyQuestHabit, ToDoQuestHabitWe will use an interface to enforce a grantReward(User user) blueprint, hiding the complex under-			the-hood leveling math from the frontend UI so the dashboard can trigger rewards with a single, clean method call. 
 7.	Initial Class Ideas:
-    Identify your main classes (the "nouns" of your problem domain) and their basic responsibilities, e.g.:
-        InventoryItem - holds product data, stock level
-        Order - aggregates items, computes totals
-        User - authentication and role management
-Recommended Additions: (Strengthen Your Proposal)
+-   User: Acts as the central container for the user’s identity and global progression.
+      Responsibilities: Manages authentication state, stores totalXP, currentLevel, and maintains a collection (List<Habit>) of all habits created by the user.
+-   Habit (Base/Abstract Class): The blueprint for all tasks.
+      Responsibilities: Holds common attributes like title, description, imagePath, and completionStatus. It defines the interface for calculating rewards.
+-   QuestManager: The "controller" class that acts as a bridge between the UI and your data models.
+      Responsibilities: Handles the logic for validating task completion, triggering the XP distribution, and checking if the User has earned enough XP to level up.
+-   StreakTracker: A utility class dedicated to temporal logic.
+      Responsibilities: Tracks dates of completion, calculates the current streak length, and computes the active XP multiplier based on that streak.
+
+
 8.	User Stories: Short feature descriptions from the end-user's perspective:
 - As a gamer and productivity enthusiast, I want my habits to reward me with XP and levels so that I feel a sense of RPG-style progression and stays motivated to maintain my routines.
 - As a student or working professional, I want to create custom habits with my own titles, descriptions, and uploaded images through the UI so that my dashboard feels personalized to my specific lifestyle.

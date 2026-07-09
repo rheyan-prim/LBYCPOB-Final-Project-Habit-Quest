@@ -12,7 +12,7 @@
 4.	Target Users:
        - Students and working professionals seeking an engaging way to manage daily routines.
        - Gamers and productivity enthusiasts who respond well to video game mechanics like leveling up and maintaining win streaks.
-5.	Brief Description: A short paragraph summarizing the project's purpose and basic functionality - what it does, end to end.
+5.	Brief Description: 
 Habit Quest is a gamified habit-tracking application that transforms daily personal development into an interactive RPG experience. Users can create customized habit "quests," complete with personalized descriptions and image uploads. When a user marks a habit as complete, they are rewarded with experience points (XP) that contribute to their overall level. To encourage daily consistency, the system tracks habit completion streaks, unlocking an increasing XP multiplier for higher streaks. End-to-end, the app handles user authentication, data persistence for custom habit objects, dynamic leveling calculations, and a responsive frontend dashboard.
 6.	Core OOP Concepts:
     List the OOP principles you intend to apply and where they'll show up, e.g.:

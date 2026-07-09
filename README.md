@@ -4,7 +4,6 @@
 	                Rafael S. Diongco (rafaeldiongco)
 		              Rheyan Miguel B. Prim (rheyan-prim)
 3.	Problem Statement & Goals:
-       What real-world problem are you solving?
        - Many individuals struggle to build consistency and stay motivated when trying to form long-term, positive habits. Traditional checklist apps often feel repetitive and demotivating, lacking the immediate, engaging feedback loop needed to sustain motivation for personal growth or to allow users to personalize their experience visually and habitually.
        What are the main objectives of your application?
        - To gamify habit building by applying RPG-style progression in order for users to maintain motivation and increase consistency with their chosen healthy habits.

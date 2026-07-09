@@ -28,11 +28,13 @@ Habit Quest is a gamified habit-tracking application that transforms daily perso
       Responsibilities: Handles the logic for validating task completion, triggering the XP distribution, and checking if the User has earned enough XP to level up.
 -   StreakTracker: A utility class dedicated to temporal logic.
       Responsibilities: Tracks dates of completion, calculates the current streak length, and computes the active XP multiplier based on that streak.
+-   LevelingSystem: Handles the mathematical logic of progression.
+      Responsibility: Calculates level thresholds (e.g., Level = XP / 100) and determines if a "level-up" event should be triggered. This keeps the User class clean.
 
 8.	User Stories: Short feature descriptions from the end-user's perspective:
 - As a gamer and productivity enthusiast, I want my habits to reward me with XP and levels so that I feel a sense of RPG-style progression and stays motivated to maintain my routines.
 - As a student or working professional, I want to create custom habits with my own titles, descriptions, and uploaded images through the UI so that my dashboard feels personalized to my specific lifestyle.
-- As an everyday user, I want the app to track my daily completion streaks and apply an XP multiplier so that I am visually and mechanically incentivized to not break my habit loops.
+- As an everyday user, I want to log my daily habit progress and view my streak statistics similar to a workout logger, so that I can monitor my consistency and feel motivated to maintain my performance over time.
 - As a security-conscious user, I want to log into a secure account so that my custom habits, personal stats, and level progress are saved and protected across different sessions.
 
 9. Core Features: A bulleted list of the main functions your system will support (e.g., user login, inventory tracking, sales reporting, receipt generation).

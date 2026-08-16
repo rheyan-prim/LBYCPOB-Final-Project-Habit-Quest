@@ -20,11 +20,12 @@ public class QuestManager {
         habit.setCompletionStatus(true);
 
         if (habit instanceof Rewardable rewardable) {
-            int before = user.getTotalXP();
+            int oldXP = user.getTotalXP();
             rewardable.grantReward(user);
 
-            if (levelingSystem.hasLeveledUp(before, user.getTotalXP())) {
-                // TODO: trigger level-up event/notification
+            if (levelingSystem.hasLeveledUp(oldXP, user.getTotalXP())) {
+                int newLevel = levelingSystem.calculateLevel(user.getTotalXP());
+                user.setCurrentLevel(newLevel);
             }
         }
     }

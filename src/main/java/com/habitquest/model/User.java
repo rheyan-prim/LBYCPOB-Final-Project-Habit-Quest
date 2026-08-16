@@ -59,6 +59,10 @@ public class User {
     // encapsulated: XP can only change through this method, not directly
     public void gainXP(int amount) {
         this.totalXP += amount;
-        // TODO: hand off to LevelingSystem for level-up threshold check
+        //Note: QuestManager orchestrates the level calculation via LevelingSystem
     }
+
+    public void setCurrentLevel(int currentLevel) {
+    this.currentLevel = currentLevel;
+}
 }

@@ -30,3 +30,34 @@ public class User {
         this.totalXP = 0;
         this.currentLevel = 1;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getTotalXP() {
+        return totalXP;
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public List<Habit> getHabits() {
+        return habits;
+    }
+
+    public void addHabit(Habit habit) {
+        habits.add(habit);
+    }
+
+    // encapsulated: XP can only change through this method, not directly
+    public void gainXP(int amount) {
+        this.totalXP += amount;
+        // TODO: hand off to LevelingSystem for level-up threshold check
+    }
+}

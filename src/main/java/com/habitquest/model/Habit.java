@@ -1,6 +1,7 @@
 package com.habitquest.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -61,5 +62,17 @@ public abstract class Habit {
 
     public void setCompletionStatus(boolean completionStatus) {
         this.completionStatus = completionStatus;
+    }
+
+    public LocalDate getLastCompletionDate() {
+        return lastCompletionDate;
+    }
+
+    public void setLastCompletionDate(LocalDate lastCompletionDate) {
+        this.lastCompletionDate = lastCOmpletionDate;
+    }
+
+    public int getStreakCount() {
+        return streakCount 
     }
 }

@@ -33,26 +33,116 @@
     </style>
 </head>
 <body>
-<div class="container">
+<!-- Auth screen -->
+<div id="authScreen" class="container">
     <h1>⚔️ Habit Quest ⚔️</h1>
     <h3>Quick User Register</h3>
     <input type="text" id="username" placeholder="Username">
     <input type="password" id="password" placeholder="Password">
-    <button onclick="registerUser()">Register Account</button>
-
-    <div id="responseLog">API Responses will show here...</div>
+    <button onclick="authenticate()">Start Game</button>
 </div>
 
+<!-- Main dashboard screen -->
+<div id="dashboardScreen" class="dashboard hidden">
+    <div class="hero-banner">
+        <h2 id="heroName">Hero: -</h2>
+        <p><strong>Level <span id="heroLevel">1</span></strong> | Total XP: <span id="heroXP">0</span></p>
+        <div class="xp-bar-container">
+            <div id="xpBar" class="xp-bar-fill"></div>
+        </div>
+    </div>
+
+    <div class="container" style="max-width: 100%; margin-bottom: 20px;">
+        <h3>📜 Add New Quest</h3>
+        <input type="text" id="questTitle" placeholder="Quest Title (e.g. Read 10 pages)">
+        <input type="text" id="questDesc" placeholder="Description">
+        <select id="questType">
+            <option value="daily">Daily Quest (Recurring)</option>
+            <option value="todo">Epic Quest (One-time To-Do)</option>
+        </select>
+        <button onclick="createQuest()">Create Quest</button>
+    </div>
+
+    <h3 style="text-align: left; width: 100%;">⚔️ Active Quests</h3>
+    <div id="questGrid" class="quest-grid"></div>
+</div>
 <script>
-    async function registerUser() {
+    let currentUser = null;
+
+    // Authenticate user
+    async function authenticate() {
         const user = document.getElementById('username').value;
         const pass = document.getElementById('password').value;
+        if (!user || !pass) return alert("Please enter username and password!");
 
         const res = await fetch(`/api/auth/register?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`, {
             method: 'POST'
         });
-        const data = await res.json();
-        document.getElementById('responseLog').textContent = JSON.stringify(data, null, 2);
+        currentUser = await res.json();
+
+        document.getElementById('authScreen').classList.add('hidden');
+        document.getElementById('dashboardScreen').classList.remove('hidden');
+
+        updateUI();
+        loadQuests();
+    }
+
+    // Update stats and XP bar
+    function updateUI() {
+        document.getElementById('heroName').innerText = `Hero: ${currentUser.username}`;
+        document.getElementById('heroLevel').innerText = currentUser.currentLevel;
+        document.getElementById('heroXP').innerText = currentUser.totalXP;
+
+        const currentLevelXP = currentUser.totalXP % 100;
+        document.getElementById('xpBar').style.width = `${currentLevelXP}%`;
+    }
+
+    // Create new quest
+    async function createQuest() {
+        const title = document.getElementById('questTitle').value;
+        const desc = document.getElementById('questDesc').value;
+        const type = document.getElementById('questType').value;
+        if (!title) return alert("Title required!");
+
+        await fetch(`/api/habits/${type}?userId=${currentUser.id}&title=${encodeURIComponent(title)}&description=${encodeURIComponent(desc)}`, {
+            method: 'POST'
+        });
+
+        document.getElementById('questTitle').value = '';
+        document.getElementById('questDesc').value = '';
+        loadQuests();
+    }
+
+    // Fetch and display active quests
+    async function loadQuests() {
+        const res = await fetch(`/api/habits?userId=${currentUser.id}`);
+        const habits = await res.json();
+
+        const grid = document.getElementById('questGrid');
+        grid.innerHTML = '';
+
+        habits.forEach(h => {
+            const card = document.createElement('div');
+            card.className = `quest-card ${h.completionStatus ? 'completed' : ''}`;
+            card.innerHTML = `
+                <span class="tag">${h.completionStatus ? 'COMPLETED' : 'ACTIVE'}</span>
+                <h4 style="margin: 8px 0;">${h.title}</h4>
+                <p style="font-size: 0.9rem; color: #a6adc8; margin: 4px 0;">${h.description || ''}</p>
+                <p style="font-size: 0.85rem; margin: 8px 0;">🔥 Streak: ${h.streakCount || 0}</p>
+                ${!h.completionStatus ? `<button onclick="completeQuest(${h.id})">Complete (+XP)</button>` : ''}
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // Complete quest and grant XP
+    async function completeQuest(habitId) {
+        const res = await fetch(`/api/habits/${habitId}/complete?userId=${currentUser.id}`, {
+            method: 'POST'
+        });
+        currentUser = await res.json();
+        updateUI();
+        loadQuests();
     }
 </script>
 </body>

@@ -33,3 +33,43 @@
             border: none;
             font-size: 1rem;
         }
+        input { background-color: #45475a; color: #fff; }
+        button { background-color: #89b4fa; color: #11111b; font-weight: bold; cursor: pointer; }
+        button:hover { background-color: #b4befe; }
+        #responseLog {
+            margin-top: 1rem;
+            padding: 10px;
+            background: #181825;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            text-align: left;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>⚔️ Habit Quest ⚔️</h1>
+    <h3>Quick User Register</h3>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="registerUser()">Register Account</button>
+
+    <div id="responseLog">API Responses will show here...</div>
+</div>
+
+<script>
+    async function registerUser() {
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+
+        const res = await fetch(`/api/auth/register?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`, {
+            method: 'POST'
+        });
+        const data = await res.json();
+        document.getElementById('responseLog').textContent = JSON.stringify(data, null, 2);
+    }
+</script>
+</body>
+</html>

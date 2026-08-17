@@ -7,6 +7,7 @@ import com.habitquest.repository.HabitRepository;
 import com.habitquest.repository.UserRepository;
 import com.habitquest.service.QuestManager;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -65,6 +66,21 @@ public class HabitController {
         userRepository.save(user);
 
         return savedHabit;
+    }
+
+    // Mark a habit complete (triggers XP gain, streak calculation, & level check)
+    @PostMapping("/{habitId}/complete")
+    public User completeHabit(@RequestParam Long userId, @PathVariable Long habitId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Habit habit = habitRepository.findById(habitId)
+                .orElseThrow(() -> new RuntimeException("Habit not found"));
+
+        questManager.completeHabit(user, habit);
+
+        habitRepository.save(habit);
+        return userRepository.save(user);
     }
 
 }

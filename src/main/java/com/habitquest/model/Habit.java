@@ -16,6 +16,8 @@ public abstract class Habit {
     private String description;
     private String imagePath;
     private boolean completionStatus;
+    private LocalDate lastCompletionDate;
+    private int streakCount;
 
     protected Habit() {
         // required by JPA
@@ -26,6 +28,7 @@ public abstract class Habit {
         this.description = description;
         this.imagePath = imagePath;
         this.completionStatus = false;
+        this.streakCount = 0;
     }
 
     public Long getId() {
@@ -69,10 +72,15 @@ public abstract class Habit {
     }
 
     public void setLastCompletionDate(LocalDate lastCompletionDate) {
-        this.lastCompletionDate = lastCOmpletionDate;
+        this.lastCompletionDate = lastCompletionDate;
     }
 
     public int getStreakCount() {
         return streakCount;
+    }
+
+    // ADDED: Missing setter required by StreakTracker / services to update streaks
+    public void setStreakCount(int streakCount) {
+        this.streakCount = streakCount;
     }
 }

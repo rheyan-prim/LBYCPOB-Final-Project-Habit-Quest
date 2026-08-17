@@ -1,9 +1,9 @@
 package com.habitquest.service;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
-@Component
+@Service
 public class StreakTracker {
   
      /** Calculates the XP/Reward multiplier based on the current consecutive streak count.

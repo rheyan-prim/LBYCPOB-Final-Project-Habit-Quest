@@ -73,6 +73,6 @@ public abstract class Habit {
     }
 
     public int getStreakCount() {
-        return streakCount 
+        return streakCount;
     }
 }

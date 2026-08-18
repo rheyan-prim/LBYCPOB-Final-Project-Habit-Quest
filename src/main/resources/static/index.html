@@ -226,6 +226,15 @@
 <script>
     let currentUser = null;
 
+    // Check for saved session on reload
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+            currentUser = JSON.parse(savedUser);
+            showDashboard();
+        }
+    });
+    
     // Authenticate user
     async function authenticate() {
         const user = document.getElementById('username').value;

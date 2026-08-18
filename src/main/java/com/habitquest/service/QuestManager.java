@@ -5,6 +5,8 @@ import com.habitquest.model.Rewardable;
 import com.habitquest.model.User;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class QuestManager {
 
@@ -19,9 +21,17 @@ public class QuestManager {
     public void completeHabit(User user, Habit habit) {
         habit.setCompletionStatus(true);
 
+        LocalDate today = LocalDate.now();
+        int updatedStreak = streakTracker.computeUpdatedStreak(
+                habit.getLastCompletionDate(), today, habit.getStreakCount());
+        habit.setStreakCount(updatedStreak);
+        habit.setLastCompletionDate(today);
+
+        double multiplier = streakTracker.getMultiplier(updatedStreak);
+
         if (habit instanceof Rewardable rewardable) {
             int oldXP = user.getTotalXP();
-            rewardable.grantReward(user);
+            rewardable.grantReward(user, multiplier);
 
             if (levelingSystem.hasLeveledUp(oldXP, user.getTotalXP())) {
                 int newLevel = levelingSystem.calculateLevel(user.getTotalXP());

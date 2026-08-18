@@ -21,7 +21,8 @@ public class ToDoQuestHabit extends Habit implements Rewardable {
     }
 
     @Override
-    public void grantReward(User user) {
-        user.gainXP(calculateXPReward());
+    public void grantReward(User user, double multiplier) {
+        int finalXP = (int) Math.round(calculateXPReward() * multiplier);
+        user.gainXP(finalXP);
     }
 }

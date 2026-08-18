@@ -34,7 +34,14 @@ public class HabitController {
     public List<Habit> getUserHabits(@RequestParam Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        return user.getHabits();
+
+        List<Habit> habits = user.getHabits();
+        for (Habit habit : habits) {
+            habit.checkDailyReset();
+        }
+        habitRepository.saveAll(habits);
+
+        return habits;
     }
 
     // Create a recurring Daily Quest habit

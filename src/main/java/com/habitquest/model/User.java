@@ -18,7 +18,7 @@ public class User {
     private int totalXP;
     private int currentLevel;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Habit> habits = new ArrayList<>();
 
     protected User() {

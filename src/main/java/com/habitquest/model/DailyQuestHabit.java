@@ -3,6 +3,8 @@ package com.habitquest.model;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
+import java.time.LocalDate;
+
 @Entity
 @DiscriminatorValue("DAILY")
 public class DailyQuestHabit extends Habit implements Rewardable {
@@ -26,4 +28,12 @@ public class DailyQuestHabit extends Habit implements Rewardable {
         user.gainXP(calculateXPReward());
     }
 
+    @Override
+    public void checkDailyReset() {
+        LocalDate today = LocalDate.now();
+        if (isCompletionStatus() && getLastCompletionDate() != null
+                && !getLastCompletionDate().isEqual(today)) {
+            setCompletionStatus(false);
+        }
+    }
 }

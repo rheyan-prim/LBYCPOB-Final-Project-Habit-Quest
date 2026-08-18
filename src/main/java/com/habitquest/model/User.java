@@ -25,6 +25,10 @@ public class User {
     public List<Habit> getHabits() {
         return habits;
     }
+
+    public void setHabits(List<Habit> habits) {
+        this.habits = habits;
+    }
     
     protected User() {
 

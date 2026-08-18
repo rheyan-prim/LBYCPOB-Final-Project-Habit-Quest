@@ -3,6 +3,7 @@ package com.habitquest.model;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "app_user")
@@ -21,6 +22,10 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Habit> habits = new ArrayList<>();
 
+    public List<Habit> getHabits() {
+        return habits;
+    }
+    
     protected User() {
 
     }

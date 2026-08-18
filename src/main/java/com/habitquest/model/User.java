@@ -40,10 +40,6 @@ public class User {
         return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public int getTotalXP() {
         return totalXP;
     }

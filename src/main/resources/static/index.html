@@ -326,6 +326,9 @@
             method: 'POST'
         });
         currentUser = await res.json();
+        
+        // Update stored session with new level/XP details
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
         updateUI();
         loadQuests();
     }

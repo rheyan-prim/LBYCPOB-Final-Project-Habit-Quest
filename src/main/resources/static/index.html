@@ -5,63 +5,188 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habit Quest</title>
     <style>
-        /* Base theme and layout */
+        :root {
+            --bg-main: #0f0f17;
+            --card-bg: #1e1e2e;
+            --card-border: #313244;
+            --accent-green: #a6e3a1;
+            --accent-blue: #89b4fa;
+            --accent-purple: #cba6f7;
+            --accent-pink: #f38ba8;
+            --text-primary: #cdd6f4;
+            --text-secondary: #a6adc8;
+            --input-bg: #181825;
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1e1e2e;
-            color: #cdd6f4;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-main);
+            background-image: radial-gradient(circle at 50% 0%, #1e1e2e 0%, #0f0f17 75%);
+            color: var(--text-primary);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 2rem;
+            padding: 2.5rem 1rem;
             margin: 0;
+            min-height: 100vh;
         }
-        .container {
-            background-color: #313244;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
-        }
-        h1 { color: #a6e3a1; margin-bottom: 1.5rem; }
-        input, select, button {
-            width: 90%;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 6px;
-            border: none;
-            font-size: 1rem;
-            box-sizing: border-box;
-        }
-        input, select { background-color: #45475a; color: #fff; }
-        button { background-color: #89b4fa; color: #11111b; font-weight: bold; cursor: pointer; }
-        button:hover { background-color: #b4befe; }
 
-        /* Dashboard UI styles */
+        /* Container Card Base */
+        .container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 440px;
+        }
+
+        h1 { color: var(--accent-green); margin: 0 0 0.5rem 0; font-size: 1.8rem; text-align: center; }
+        h3 { color: var(--text-primary); margin-top: 0; text-align: center; font-weight: 600; }
+
+        /* Inputs and Buttons */
+        input, select, button {
+            width: 100%;
+            padding: 12px 16px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input, select {
+            background-color: var(--input-bg);
+            color: var(--text-primary);
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(137, 180, 250, 0.15);
+        }
+
+        button {
+            background-color: var(--accent-blue);
+            color: #11111b;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            margin-top: 12px;
+        }
+
+        button:hover {
+            background-color: #b4befe;
+            transform: translateY(-1px);
+        }
+
+        .logout-btn {
+            background-color: rgba(243, 139, 168, 0.15);
+            color: var(--accent-pink);
+            border: 1px solid var(--accent-pink);
+            width: auto;
+            padding: 6px 14px;
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--accent-pink);
+            color: #11111b;
+        }
+
+        /* Layout & Dashboard */
         .hidden { display: none !important; }
-        .dashboard { width: 100%; max-width: 700px; }
+        .dashboard { width: 100%; max-width: 720px; }
+
         .hero-banner {
-            background: #313244;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             padding: 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            text-align: center;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
-        .xp-bar-container { background: #181825; height: 18px; border-radius: 10px; overflow: hidden; margin-top: 10px; }
-        .xp-bar-fill { background: linear-gradient(90deg, #a6e3a1, #94e2d5); height: 100%; width: 0%; transition: width 0.3s ease; }
-        .quest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; width: 100%; }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .xp-bar-container {
+            background: var(--input-bg);
+            height: 14px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 12px;
+            border: 1px solid var(--card-border);
+        }
+
+        .xp-bar-fill {
+            background: linear-gradient(90deg, var(--accent-green), #94e2d5);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease-in-out;
+        }
+
+        /* Quest Cards Grid */
+        .quest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+            width: 100%;
+        }
+
         .quest-card {
-            background-color: #313244;
-            border-radius: 10px;
-            padding: 15px;
-            border-left: 5px solid #89b4fa;
-            text-align: left;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-left: 4px solid var(--accent-blue);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .quest-card.completed { border-left-color: #a6e3a1; opacity: 0.6; }
-        .tag { font-size: 0.75rem; background: #45475a; padding: 2px 6px; border-radius: 4px; display: inline-block; }
+
+        .quest-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .quest-card.completed {
+            border-left-color: var(--accent-green);
+            opacity: 0.65;
+        }
+
+        .quest-card h4 {
+            margin: 8px 0;
+            color: var(--text-primary);
+        }
+
+        .quest-card.completed h4 {
+            text-decoration: line-through;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: var(--input-bg);
+            color: var(--accent-blue);
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .quest-card.completed .tag {
+            color: var(--accent-green);
+        }
     </style>
 </head>
 <body>

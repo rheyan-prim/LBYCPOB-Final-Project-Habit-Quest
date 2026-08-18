@@ -25,4 +25,5 @@ public class DailyQuestHabit extends Habit implements Rewardable {
         int finalXP = (int) Math.round(calculateXPReward() * multiplier);
         user.gainXP(calculateXPReward());
     }
+
 }

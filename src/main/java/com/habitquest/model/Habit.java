@@ -83,4 +83,9 @@ public abstract class Habit {
     public void setStreakCount(int streakCount) {
         this.streakCount = streakCount;
     }
+
+    public void checkDailyReset() {
+        // no-op by default (e.g. ToDoQuestHabit won't reset)
+    }
+
 }

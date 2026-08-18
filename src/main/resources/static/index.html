@@ -202,7 +202,10 @@
 <!-- Main dashboard screen -->
 <div id="dashboardScreen" class="dashboard hidden">
     <div class="hero-banner">
-        <h2 id="heroName">Hero: -</h2>
+        <div class="header-bar">
+            <h2 id="heroName" style="margin: 0;">Hero: -</h2>
+            <button type="button" class="logout-btn" onclick="logout()">Logout</button>
+        </div>
         <p><strong>Level <span id="heroLevel">1</span></strong> | Total XP: <span id="heroXP">0</span></p>
         <div class="xp-bar-container">
             <div id="xpBar" class="xp-bar-fill"></div>
@@ -332,6 +335,21 @@
         currentUser = await res.json();
         updateUI();
         loadQuests();
+    }
+
+    // Explicit Logout function
+    function logout() {
+        // Remove browser session token
+        localStorage.removeItem('currentUser');
+        currentUser = null;
+
+        // Reset input fields
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+
+        // Switch screens back to auth
+        document.getElementById('dashboardScreen').classList.add('hidden');
+        document.getElementById('authScreen').classList.remove('hidden');
     }
 </script>
 </body>

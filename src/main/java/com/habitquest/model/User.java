@@ -13,7 +13,7 @@ public class User {
     private Long id;
 
     private String username;
-    private String password; // hashed later by Person 3's auth flow
+    private String password;
 
     private int totalXP;
     private int currentLevel;
@@ -22,7 +22,7 @@ public class User {
     private List<Habit> habits = new ArrayList<>();
 
     protected User() {
-        // required by JPA
+
     }
 
     public User(String username, String password) {
@@ -59,7 +59,7 @@ public class User {
     // encapsulated: XP can only change through this method, not directly
     public void gainXP(int amount) {
         this.totalXP += amount;
-        //Note: QuestManager orchestrates the level calculation via LevelingSystem
+        //QuestManager orchestrates the level calculation via LevelingSystem
     }
 
     public void setCurrentLevel(int currentLevel) {

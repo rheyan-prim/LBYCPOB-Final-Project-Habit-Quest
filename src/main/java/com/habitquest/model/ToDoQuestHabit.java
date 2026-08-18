@@ -17,7 +17,7 @@ public class ToDoQuestHabit extends Habit implements Rewardable {
 
     @Override
     public int calculateXPReward() {
-        return 50; // one-time "epic quest" placeholder, higher than daily
+        return 50; // one-time "epic quest", higher than daily
     }
 
     @Override

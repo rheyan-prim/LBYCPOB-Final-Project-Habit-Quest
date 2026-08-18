@@ -17,7 +17,7 @@ public class DailyQuestHabit extends Habit implements Rewardable {
 
     @Override
     public int calculateXPReward() {
-        return 10; // flat rate placeholder, refine later with streak multiplier
+        return 10; // flat rate
     }
 
     @Override

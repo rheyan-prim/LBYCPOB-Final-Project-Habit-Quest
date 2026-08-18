@@ -20,7 +20,7 @@ public abstract class Habit {
     private int streakCount;
 
     protected Habit() {
-        // required by JPA
+
     }
 
     public Habit(String title, String description, String imagePath) {

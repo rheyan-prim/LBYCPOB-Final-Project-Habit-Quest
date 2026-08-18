@@ -232,10 +232,25 @@
         const pass = document.getElementById('password').value;
         if (!user || !pass) return alert("Please enter username and password!");
 
+        try{
         const res = await fetch(`/api/auth/register?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`, {
             method: 'POST'
         });
-        currentUser = await res.json();
+        
+        if (!res.ok) {
+                const errorText = await res.text();
+                return alert(`Authentication failed: ${errorText || res.statusText}`);
+        }
+
+            currentUser = await res.json();
+
+            // Only save valid user data            
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            showDashboard();
+        } catch (err) {
+            alert("Server error. Check if Spring Boot backend is running.");
+        }
+    }
 
         document.getElementById('authScreen').classList.add('hidden');
         document.getElementById('dashboardScreen').classList.remove('hidden');
@@ -244,6 +259,14 @@
         loadQuests();
     }
 
+    // Displays dashboard UI and loads data
+    function showDashboard() {
+        document.getElementById('authScreen').classList.add('hidden');
+        document.getElementById('dashboardScreen').classList.remove('hidden');
+        updateUI();
+        loadQuests();
+    }
+    
     // Update stats and XP bar
     function updateUI() {
         document.getElementById('heroName').innerText = `Hero: ${currentUser.username}`;

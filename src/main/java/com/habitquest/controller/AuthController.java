@@ -15,8 +15,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public User register(@RequestParam String username, @RequestParam String password) {
-        User user = new User(username, password);
-        return userRepository.save(user);
+    public User registerOrLogin(@RequestParam String username, @RequestParam String password) {
+        return userRepository.findByUsername(username)
+                .orElseGet(() -> userRepository.save(new User(username, password)))
     }
 }

@@ -49,7 +49,7 @@ public class HabitController {
         DailyQuestHabit habit = new DailyQuestHabit(title, description, imagePath);
         Habit savedHabit = habitRepository.save(habit);
 
-        user.getHabits().add(savedHabit);
+        user.addHabit(savedHabit);
         userRepository.save(user);
 
         return savedHabit;
@@ -67,7 +67,7 @@ public class HabitController {
         ToDoQuestHabit habit = new ToDoQuestHabit(title, description, imagePath);
         Habit savedHabit = habitRepository.save(habit);
 
-        user.getHabits().add(savedHabit);
+        user.addHabit(savedHabit);
         userRepository.save(user);
 
         return savedHabit;

@@ -79,13 +79,13 @@ public class HabitController {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Habit habit = habitRepository.findById(habitId)
-                .orElseThrow(() -> new RuntimeException("Habit not found"));
+        Habit habit = user.getHabits().stream()
+                .filter(h -> h.getId().equals(habitId))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Habit not found for this user"));
 
         questManager.completeHabit(user, habit);
 
-        habitRepository.save(habit);
-        return userRepository.save(user);
+        return userRepository.save(user); // cascade now saves the SAME modified instance
     }
-
 }

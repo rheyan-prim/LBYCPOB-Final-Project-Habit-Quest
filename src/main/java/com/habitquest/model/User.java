@@ -30,48 +30,44 @@ public class User {
         this.habits = habits;
     }
     
-    protected User() {
+    public void addHabit(Habit habit) {
+        if (this.habits == null) {
+            this.habits = new ArrayList<>();
+        }
+        this.habits.add(habit);
+    }
+
+    public void gainXP(int xp) {
+        if (xp <= 0) return;
+        this.totalXP += xp;
+
+        this.currentLevel = (this.totalXP / 100) + 1;
+    }
+
+    private int currentLevel = 1;
+    private int totalXP = 0; {
 
     }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.totalXP = 0;
         this.currentLevel = 1;
+        this.totalXP = 0;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public int getTotalXP() {
-        return totalXP;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public int getCurrentLevel() {
-        return currentLevel;
-    }
+    public int getCurrentLevel() { return currentLevel; }
+    public void setCurrentLevel(int currentLevel) { this.currentLevel = currentLevel; }
 
-    public List<Habit> getHabits() {
-        return habits;
-    }
-
-    public void addHabit(Habit habit) {
-        habits.add(habit);
-    }
-
-    // encapsulated: XP can only change through this method, not directly
-    public void gainXP(int amount) {
-        this.totalXP += amount;
-        //QuestManager orchestrates the level calculation via LevelingSystem
-    }
-
-    public void setCurrentLevel(int currentLevel) {
-    this.currentLevel = currentLevel;
-}
+    public int getTotalXP() { return totalXP; }
+    public void setTotalXP(int totalXP) { this.totalXP = totalXP; }
 }

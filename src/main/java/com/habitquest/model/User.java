@@ -6,7 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "app_user")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -14,10 +14,9 @@ public class User {
     private Long id;
 
     private String username;
-    private String password;
 
-    private int totalXP;
-    private int currentLevel;
+    @JsonIgnore
+    private String password;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Habit> habits = new ArrayList<>();
@@ -41,13 +40,15 @@ public class User {
         if (xp <= 0) return;
         this.totalXP += xp;
 
+        // Example level up logic: level increases for every 100 total XP
         this.currentLevel = (this.totalXP / 100) + 1;
     }
 
     private int currentLevel = 1;
-    private int totalXP = 0; {
+    private int totalXP = 0; 
 
-    }
+    // Default No-Args Constructor (Required by JPA)
+    public User() {}
 
     public User(String username, String password) {
         this.username = username;

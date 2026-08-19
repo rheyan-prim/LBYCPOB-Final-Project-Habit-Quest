@@ -25,7 +25,7 @@ public class DailyQuestHabit extends Habit implements Rewardable {
     @Override
     public void grantReward(User user, double multiplier) {
         int finalXP = (int) Math.round(calculateXPReward() * multiplier);
-        user.gainXP(calculateXPReward());
+        user.gainXP(finalXP);  // ← fixed: uses the multiplied value
     }
 
     @Override

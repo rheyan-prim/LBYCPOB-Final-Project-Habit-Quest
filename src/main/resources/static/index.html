@@ -244,21 +244,33 @@
         const pass = document.getElementById('password').value;
         if (!user || !pass) return alert("Please enter username and password!");
 
-        try{
-        const res = await fetch(`/api/auth/register?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`, {
-            method: 'POST'
-        });
-        
-        if (!res.ok) {
-                const errorText = await res.text();
-                return alert(`Authentication failed: ${errorText || res.statusText}`);
-        }
+        try {
+            // Try logging in first
+            let res = await fetch(`/api/auth/login?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`, {
+                method: 'POST'
+            });
 
-            currentUser = await res.json();
+            if (res.ok) {
+                currentUser = await res.json();
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                return showDashboard();
+            }
 
-            // Only save valid user data            
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            showDashboard();
+            // Login failed — try registering as a new user
+            res = await fetch(`/api/auth/register?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`, {
+                method: 'POST'
+            });
+
+            if (res.ok) {
+                currentUser = await res.json();
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                return showDashboard();
+            }
+
+            // Both failed — username exists AND password was wrong
+            const errorText = await res.text();
+            alert(`Login failed: wrong password for that username.`);
+
         } catch (err) {
             alert("Server error. Check if Spring Boot backend is running.");
         }
